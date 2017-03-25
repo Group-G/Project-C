@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+version = '1.0'
+mainClassName = "groupg.Main"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/'
+        }
+        resources {
+            srcDir 'res/'
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes (
+                'Class-Path': configurations.compile.collect{it.getName()}.join(' '),
+                'Main-Class': mainClassName
+        )
+    }
+}
