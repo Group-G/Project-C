@@ -47,3 +47,13 @@ fabric.properties
 build/
 classes/
 .gradle/
+.idea/artifacts/
+.idea/compiler.xml
+.idea/description.html
+.idea/encodings.xml
+.idea/inspectionProfiles/
+.idea/markdown-navigator.xml
+.idea/markdown-navigator/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
