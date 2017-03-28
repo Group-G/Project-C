@@ -33,6 +33,37 @@ public class JavaDBExample
 
         try
         {
+                // substitute your database name for myDB
+                connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+                Statement stmt = connection.createStatement();
+
+               /* String drop0 = "DROP TABLE ROOM";
+                String drop1 = "DROP TABLE DOCTOR";
+                String drop2 = "DROP TABLE CONNECTION";
+                String drop3 = "DROP TABLE FLOOR";
+                String drop4 = "DROP TABLE BUILDING";
+                String drop5 = "DROP TABLE LOCATION";
+                //stmt.execute(str0);
+*/
+                String create0 = "CREATE TABLE ROOM (roomID CHAR(20) NOT NULL Primary Key)";
+                //stmt.execute(str1);
+
+                String str1 = "INSERT INTO ROOM VALUES (11, 'Jim Bye', 'Buffalo', 34)";
+                stmt.execute(str1);
+                stmt.execute(str1);
+                stmt.execute(str1);
+
+
+                String str3 = "SELECT * FROM CUSTOMER";
+                ResultSet res = stmt.executeQuery(str3);
+                System.out.println(res);
+                while (res.next()) {
+                    System.out.println(
+                            "  "+res.getInt("SALARY")
+                                    + ", "+res.getString("NAME")
+                                    + ", "+res.getString("LOCATION")
+                                    + ", "+res.getInt("AGE"));
+                }
             // substitute your database name for myDB
             connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
         }
