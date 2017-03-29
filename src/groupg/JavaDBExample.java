@@ -5,11 +5,19 @@ package groupg;
   Edited by Samantha Comeau, Saul Woolf, Alazar Genene on 3/29/2017
  */
 
+/**
+ * @author Wilson Wong
+ * @author Samanthe Comeau
+ * @auther Saul Woolf
+ * @auther Alazar Genene
+ * @since 2017-03-19
+ */
+
 import java.sql.*;
 
 public class JavaDBExample
 {
-    public static void main(String[] args)
+    void testDB()
     {
         System.out.println("-------Embedded Java DB Connection Testing --------");
         try

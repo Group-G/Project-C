@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Wed Mar 29 15:38:37 EDT 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015b-1b93-b5f0-000006ea4568 
-on database directory C:\Users\Sammy\Documents\GitHub\CS3733_ProjectC\Project-C\HospitalDatabase with class loader sun.misc.Launcher$AppClassLoader@1b6d3586 
-Loaded from file:/C:/Users/Sammy/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.13.1.1/29c42babe5c5463c6eea45487d3cfbfe8348ccd1/derby-10.13.1.1.jar
+Wed Mar 29 16:14:53 EDT 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015b-1bb4-ed55-0000064f4980 
+on database directory /home/ryan/java/Project-C/HospitalDatabase with class loader sun.misc.Launcher$AppClassLoader@7f31245a 
+Loaded from file:/home/ryan/java/Project-C/build/libs/Project-C-1.0.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_121-b13
-user.dir=C:\Users\Sammy\Documents\GitHub\CS3733_ProjectC\Project-C
-os.name=Windows 10
+java.runtime.version=1.8.0_121-8u121-b13-0ubuntu1.16.04.2-b13
+user.dir=/home/ryan/java/Project-C
+os.name=Linux
 os.arch=amd64
-os.version=10.0
+os.version=4.8.0-44-generic
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

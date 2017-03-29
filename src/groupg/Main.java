@@ -19,6 +19,9 @@ public class Main extends Application
 
     public static void main(String[] args)
     {
+        JavaDBExample dbExample = new JavaDBExample();
+        dbExample.testDB();
+
         launch(args);
     }
 }

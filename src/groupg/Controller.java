@@ -14,6 +14,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * @author Ryan Benasutti
+ * @version 0.0
+ * @since 2017-03-23
+ */
+
 public class Controller
 {
     //welcomeScreen
