@@ -38,92 +38,52 @@ public class JavaDBExample
             Statement stmt = connection.createStatement();
 
             //DROP TABLES
-            connection.createStatement().execute("DROP TABLE ROOM");
-            connection.createStatement().execute("DROP TABLE PERSONELLE");
-            connection.createStatement().execute("DROP TABLE BUILDING");
-            connection.createStatement().execute("DROP TABLE FLOOR");
+            stmt.execute("DROP TABLE ROOM");
+            stmt.execute("DROP TABLE PERSONELLE");
+            stmt.execute("DROP TABLE BUILDING");
+            stmt.execute("DROP TABLE FLOOR");
 
 
             //CREATE TABLES
-            connection.createStatement().execute("CREATE TABLE ROOM (ROOM_ID char(20) NOT NULL Primary Key, FLOOR_NUM int default 0, FLOOR_X_CORD int default 0, FLOOR_Y_CORD int default 0, ROOM_TYPE varchar(20), BUILDING_NUM int default 0)");
-            connection.createStatement().execute("CREATE TABLE PERSONELLE (PERSONELLE_ID int NOT NULL Primary Key, DOCTOR_NAME varchar(20) default NULL, OFFICE_NUMBER char(20) references ROOM.ROOM_ID");
-            connection.createStatement().execute("CREATE TABLE BUILDING (BUILDING_ID char(20) NOT NULL Primary Key, BUILDING_NAME varchar(20), FLOOR_COUNT int)");
-            connection.createStatement().execute("CREATE TABLE FLOOR(FLOOR_NUMBER int NOT NULL Primary Key, BUILDING_ID char(20) references BUILDING.BUILDING_ID)");
+            stmt.execute("CREATE TABLE ROOM (ROOM_ID char(20) NOT NULL Primary Key, FLOOR_NUM int default 1, FLOOR_X_CORD int default 0, FLOOR_Y_CORD int default 0, ROOM_TYPE varchar(20), BUILDING_NUM int default 0)");
+            stmt.execute("CREATE TABLE PERSONELLE (PERSONELLE_ID int NOT NULL Primary Key, DOCTOR_NAME varchar(20) default NULL, OFFICE_NUMBER char(20) references ROOM.ROOM_ID");
+            stmt.execute("CREATE TABLE BUILDING (BUILDING_ID char(20) NOT NULL Primary Key, BUILDING_NAME varchar(20), FLOOR_COUNT int)");
+            stmt.execute("CREATE TABLE FLOOR(FLOOR_NUMBER int NOT NULL Primary Key, BUILDING_ID char(20) references BUILDING.BUILDING_ID)");
 
 
             //INSERT INTO TABLES
-            /*connection.createStatement().execute("INSERT INTO ROOM VALUES " +
-                    "(111,'Y','Jerry', 1), " +
-                    "(112,'Y', 'Harry',1), " +
-                    "(113,'Y', 'Larry', 1), " +
-                    "(114,'Y', 'Mary', 1), " +
-                    "(115,'Y', 'Kary', 1), " +
-                    "(116,'Y', 'Barry', 1), " +
-                    "(117,'Y', 'Sam', 1), " +
-                    "(118,'Y', 'Alazar', 1), " +
-                    "(119,'Y', 'Will', 1), " +
-                    "(120,'Y', 'Saul', 1), " +
-                    "(121,'Y', 'Brain', 1), " +
-                    "(123,'Y', 'Ryan', 1), " +
-                    "(124,'Y', 'Hunter', 1), " +
-                    "(125,'Y', 'Eric', 1), " +
-                    "(126,'Y', 'Dylan', 1), " +
-                    "(127,'Y', 'Andrew', 1), " +
-                    "(128,'Y', 'Wilson', 1), " +
-                    "(129,'Y', 'Wong', 1), " +
-                    "(130,'Y', 'Paul', 1), " +
-                    "(131,'Y', 'Raymond', 1), " +
-                    "(132,'Y', 'Chris', 1)");
-            connection.createStatement().execute("INSERT INTO DOCTOR VALUES " +
-                    "(111,'Y','Jerry', 1), " +
-                    "(112,'N', 'Harry',1), " +
-                    "(113,'N', 'Larry', 1), " +
-                    "(114,'Y', 'Mary', 1), " +
-                    "(115,'Y', 'Kary', 1), " +
-                    "(116,'N', 'Barry', 1), " +
-                    "(117,'Y', 'Sam', 1), " +
-                    "(118,'N', 'Alazar', 1), " +
-                    "(119,'Y', 'Will', 1), " +
-                    "(120,'N', 'Saul', 1), " +
-                    "(121,'N', 'Brain', 1), " +
-                    "(123,'N', 'Ryan', 1), " +
-                    "(124,'Y', 'Hunter', 1), " +
-                    "(125,'Y', 'Eric', 1), " +
-                    "(126,'Y', 'Dylan', 1), " +
-                    "(127,'N', 'Andrew', 1), " +
-                    "(128,'N', 'Wilson', 1), " +
-                    "(129,'Y', 'Wong', 1), " +
-                    "(130,'Y', 'Paul', 1), " +
-                    "(131,'N', 'Raymond', 1), " +
-                    "(132,'Y', 'Chris', 1)");
-            connection.createStatement().execute("INSERT INTO CUSTOMER VALUES (111,'yoo', 'Room 30', '20')");
+            stmt.execute("INSERT INTO ROOM VALUES " +
+                    "('A11', 0, 2, 2, 'WAITING_ROOM', 0), " +
+                    "('A21', 0, 2, 3, 'OFFICE', 0), ");
+            stmt.execute("INSERT INTO PERSONELLE VALUES " +
+                    "(0123, 'Dr. Hunter Peterson', 'A21'), " +
+                    "(0124, 'Nurse Bella', 'A21'), ");
+            stmt.execute("INSERT INTO BUILDING VALUES " +
+                    "('B0', 'Residential Services', 2), " +
+                    "('B1', 'Morgan Hall', 4), ");
+            stmt.execute("INSERT INTO FLOOR VALUES " +
+                    "(1, 'Residential Services'), " +
+                    "(1, 'Morgan Hall'), " +
+                    "(2, 'Morgan Hall'), " +
+                    "(3, 'Morgan Hall'), " +
+                    "(4, 'Morgan Hall'), ");
 
 
 
-            //String str3 = "SELECT * FROM CUSTOMER";
-            Statement statement = connection.createStatement();
-            String SQLStatement = "SELECT * FROM PERSONELLE";
-            ResultSet res = stmt.executeQuery(SQLStatement);
+            //Select everything from Personelle
+            ResultSet res = stmt.executeQuery("SELECT * FROM PERSONELLE");
             ResultSetMetaData resultSetMetaData = res.getMetaData();
             int columnCount = resultSetMetaData.getColumnCount();
             for (int i = 1; i <= columnCount; i++){
                 System.out.format("%20s", resultSetMetaData.getColumnName(i) +'|');
             }
-
-
             System.out.println(res);
             while (res.next()) {
                 System.out.println(" ");
-                for (int j = 1; j <= columnCount; j++){
-                   System.out.format("%20s", res.getString(j) +'|');
+                for (int j = 1; j <= columnCount; j++) {
+                    System.out.format("%20s", res.getString(j) + '|');
                 }
-                /*System.out.println(
-                        "  "+res.getInt("SALARY")
-                                + ", "+res.getString("NAME")
-                                + ", "+res.getString("LOCATION")
-                                + ", "+res.getInt("AGE"));
-
-            }*/
+            }
 
             // substitute your database name for myDB
             //connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
