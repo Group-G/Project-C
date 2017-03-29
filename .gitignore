@@ -58,4 +58,5 @@ classes/
 .idea/modules.xml
 .idea/vcs.xml
 .idea/modules/Project-C.iml
+!/derby.log
 .idea/kotlinc.xml
