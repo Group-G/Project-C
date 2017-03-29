@@ -34,59 +34,116 @@ public class JavaDBExample
         try
         {
             // substitute your database name for myDB
-            connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            connection = DriverManager.getConnection("jdbc:derby:HospitalDatabase;create=true");
             Statement stmt = connection.createStatement();
 
-            //DROP TABLES
-            stmt.execute("DROP TABLE ROOM");
-            stmt.execute("DROP TABLE PERSONELLE");
-            stmt.execute("DROP TABLE BUILDING");
-            stmt.execute("DROP TABLE FLOOR");
+            //DROP TABLE
 
+            try {
+                stmt.execute("DROP TABLE ROOM");
+            }
+            catch (SQLException e)
+            {
+                System.out.println("Could not drop room.\n");
+                //e.printStackTrace();
+            }
+
+            try {
+                stmt.execute("DROP TABLE PERSONELLE");
+            }
+            catch (SQLException e)
+            {
+                System.out.println("Could not drop personelle.\n");
+                //e.printStackTrace();
+            }
+
+            try {
+                stmt.execute("DROP TABLE BUILDING");
+            }
+            catch (SQLException e)
+            {
+                System.out.println("Could not drop building.\n");
+                //e.printStackTrace();
+            }
+
+            try {
+                stmt.execute("DROP TABLE FLOOR");
+            }
+            catch (SQLException e)
+            {
+                System.out.println("Could not drop floor.\n");
+                //e.printStackTrace();
+            }
+            //END DROP TABLES
 
             //CREATE TABLES
             stmt.execute("CREATE TABLE ROOM (ROOM_ID char(20) NOT NULL Primary Key, FLOOR_NUM int default 1, FLOOR_X_CORD int default 0, FLOOR_Y_CORD int default 0, ROOM_TYPE varchar(20), BUILDING_NUM int default 0)");
-            stmt.execute("CREATE TABLE PERSONELLE (PERSONELLE_ID int NOT NULL Primary Key, DOCTOR_NAME varchar(20) default NULL, OFFICE_NUMBER char(20) references ROOM.ROOM_ID");
+            stmt.execute("CREATE TABLE PERSONELLE (PERSONELLE_ID int NOT NULL Primary Key, DOCTOR_NAME varchar(20) default NULL, OFFICE_NUMBER char(20))");
             stmt.execute("CREATE TABLE BUILDING (BUILDING_ID char(20) NOT NULL Primary Key, BUILDING_NAME varchar(20), FLOOR_COUNT int)");
-            stmt.execute("CREATE TABLE FLOOR(FLOOR_NUMBER int NOT NULL Primary Key, BUILDING_ID char(20) references BUILDING.BUILDING_ID)");
-
+            stmt.execute("CREATE TABLE FLOOR(FLOOR_NUMBER int, BUILDING_ID char(20))");
+            //END DROP TABLES
 
             //INSERT INTO TABLES
             stmt.execute("INSERT INTO ROOM VALUES " +
-                    "('A11', 0, 2, 2, 'WAITING_ROOM', 0), " +
-                    "('A21', 0, 2, 3, 'OFFICE', 0), ");
+                    "('A11', 1, 2, 2, 'WAITING_ROOM', 0), " +
+                    "('A21', 1, 2, 3, 'OFFICE', 0) ");
             stmt.execute("INSERT INTO PERSONELLE VALUES " +
                     "(0123, 'Dr. Hunter Peterson', 'A21'), " +
-                    "(0124, 'Nurse Bella', 'A21'), ");
+                    "(0124, 'Nurse Bella', 'A21') ");
             stmt.execute("INSERT INTO BUILDING VALUES " +
                     "('B0', 'Residential Services', 2), " +
-                    "('B1', 'Morgan Hall', 4), ");
+                    "('B1', 'Morgan Hall', 4) ");
             stmt.execute("INSERT INTO FLOOR VALUES " +
                     "(1, 'Residential Services'), " +
                     "(1, 'Morgan Hall'), " +
                     "(2, 'Morgan Hall'), " +
                     "(3, 'Morgan Hall'), " +
-                    "(4, 'Morgan Hall'), ");
+                    "(4, 'Morgan Hall') ");
+            //END INSERT TABLES
 
+            //New Line
+            System.out.println("\n");
 
+            //Description
+            System.out.println("Selecting everything from personelle.\n");
 
-            //Select everything from Personelle
-            ResultSet res = stmt.executeQuery("SELECT * FROM PERSONELLE");
-            ResultSetMetaData resultSetMetaData = res.getMetaData();
-            int columnCount = resultSetMetaData.getColumnCount();
-            for (int i = 1; i <= columnCount; i++){
-                System.out.format("%20s", resultSetMetaData.getColumnName(i) +'|');
+            //Select everything from PERSONELLE
+            ResultSet personelle = stmt.executeQuery("SELECT * FROM PERSONELLE");
+            ResultSetMetaData personelleDataset = personelle.getMetaData();
+            int personelleColumns = personelleDataset.getColumnCount();
+            for (int i = 1; i <= personelleColumns; i++){
+                System.out.format("%20s", personelleDataset.getColumnName(i) +'|');
             }
-            System.out.println(res);
-            while (res.next()) {
+            System.out.println(personelle);
+            while (personelle.next()) {
                 System.out.println(" ");
-                for (int j = 1; j <= columnCount; j++) {
-                    System.out.format("%20s", res.getString(j) + '|');
+                for (int j = 1; j <= personelleColumns; j++) {
+                    System.out.format("%20s", personelle.getString(j) + '|');
                 }
             }
 
-            // substitute your database name for myDB
-            //connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            //New Line
+            System.out.println("\n");
+
+            //Description
+            System.out.println("Selecting the room ID's that are on floor 1.\n");
+
+            //Select room ID's that are on floor 1 from ROOM
+            ResultSet room = stmt.executeQuery("SELECT ROOM_ID FROM ROOM WHERE FLOOR_NUM=1");
+            ResultSetMetaData roomDataset = room.getMetaData();
+            int roomColumns = roomDataset.getColumnCount();
+            for (int i = 1; i <= roomColumns; i++){
+                System.out.format("%20s", roomDataset.getColumnName(i) +'|');
+            }
+            System.out.println(room);
+            while (room.next()) {
+                System.out.println(" ");
+                for (int j = 1; j <= roomColumns; j++) {
+                    System.out.format("%20s", room.getString(j) + '|');
+                }
+            }
+
+            /* end try */
         }
         catch (SQLException e)
         {
