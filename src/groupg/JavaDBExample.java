@@ -2,6 +2,7 @@ package groupg;
 
 /*
   Created by WilsonWong on 3/19/2017.
+  Edited by Samantha Comeau, Saul Woolf, Alazar Genene on 3/29/2017
  */
 
 import java.sql.*;
